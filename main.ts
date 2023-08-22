@@ -151,7 +151,7 @@ function playSong(id: number) {
             //omited one more repeat(song_O2~song_B4)
             .replaceInstrument(6, 0)
             .fill(true, songDrum)
-
+        
         // https://www.bilibili.com/read/cv7813887/
         // (.+?) for 流（なが）
         const lyric_A="\
@@ -195,10 +195,12 @@ function playSong(id: number) {
         すべてのこともまだしらないの\
         おもいまぶたをあけたのならば\
         すべてこわすのならくろになれ--"
-        
+
         const lyric = lyric_A + lyric_B13 + lyric_B2 + lyric_A + lyric_B13 + lyric_B4
         Karaoke.setLyricSentencesSeparator("#")
-        Karaoke.playSong(builder.song, "Bad Apple", lyric.replaceAll("  ", "#"), 3)
+        Karaoke.setLyricWordsSeparator(" ")
+        Karaoke.playSong(builder.song, "Bad Apple", Karaoke.Kana2Roma(lyric.replaceAll("  ", "#")), 3)
+        Karaoke.ppt=4
     }
     // 外婆的澎湖湾
     if (selectedSongID == 5) {
