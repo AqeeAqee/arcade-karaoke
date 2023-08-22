@@ -27,7 +27,77 @@
  *  build-in Song Editor:
  *    can't edit/display rise/fall tones
  */
+
+game.stats = true
+music.setVolume(255)
+const bg = game.currentScene().background.image
+
 let selectedSongID = -1
+function drawMenu(){
+    let myMenu = miniMenu.createMenu(
+        miniMenu.createMenuItem("Twinkle Star"),
+        miniMenu.createMenuItem("Scarborough Fair"),
+        miniMenu.createMenuItem("The Sound Of Silence"),
+        miniMenu.createMenuItem("多想还小"),
+        miniMenu.createMenuItem("宝贝宝贝"),
+        miniMenu.createMenuItem("外婆的澎湖湾"),
+        miniMenu.createMenuItem("罗刹海市"),
+        miniMenu.createMenuItem("Bad Apple"),
+    )
+    myMenu.setTitle("Karaoke V.1")
+    myMenu.setFrame(img`
+    ...cc......................cc....
+    ..c55c..bbbb...bbbbb......c55c...
+    .cb55bcbdddbbbbbdddbbbbbbcb55bc..
+    b555555bbdddb111bdddb11db555555b.
+    bb5555bbdbdb11111bdb1111bb5555bb.
+    cb5555bcddd11111ddd11111cb5555bc.
+    .c5bb5c1111d111d111d111ddc5bb5c..
+    .cbbbbc111111111111111111cbbbbc..
+    ..b11111111111111111111111d111bb.
+    ..b111111111111111111111111d1bdb.
+    ..bb11111111111111111111111dbddb.
+    .bbdb1d11111111111111111111ddddb.
+    .bdddd11111111111111111111d1bdbb.
+    .bddbd11111111111111111111111bb..
+    .bdb1d111111111111111111111111b..
+    .bb111d11111111111111111111111b..
+    ..b11111111111111111111111d111bb.
+    ..b111111111111111111111111d1bdb.
+    ..bb11111111111111111111111dbddb.
+    .bbdb1d11111111111111111111ddddb.
+    .bdddd11111111111111111111d1bdbb.
+    .bddbd11111111111111111111111bb..
+    .bdbb1111111111111111111111111b..
+    .bbbd1111111111111111111111111b..
+    ..bcc111111111111111111111dccdb..
+    ..c55c111d111d111d111d1111c55cb..
+    .cb55bcdd11111ddd11111dddcb55bc..
+    b555555b11111bdb11111bdbb555555b.
+    bb5555bbb111bdddb111bdddbb5555bb.
+    cb5555bcdbbbbbdddbbbbbddcb5555bc.
+    .c5bb5c.bb...bbbbb...bbbbc5bb5c..
+    .cbbbbc..................cbbbbc..
+    .................................
+`)
+    myMenu.setDimensions(screen.width, screen.height)
+    myMenu.setPosition(1, 1)
+    
+
+    myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
+        info.setScore(selectedIndex)
+        selectedSongID = selectedIndex
+        myMenu.close()
+    })
+
+    pauseUntil(()=>selectedSongID>=0)
+}
+
+if (selectedSongID < 0)
+    drawMenu()
+
+playSong(selectedSongID)
+
 
 function playSong(id: number) {
     Karaoke.setLyricWordsSeparator(undefined)
@@ -472,47 +542,6 @@ function playSong(id: number) {
     }
 }
 
-const songTitles="\
-    Twinkle Star\
-    Scarborough Fair\
-    The Sound Of Silence\
-    多想还小\
-    宝贝宝贝\
-    外婆的澎湖湾\
-    罗刹海市\
-    Bad Apple".trim().split("    ")
-    
-function drawMenu() {// a simple menu, with some glitch :）
-    while (1) {
-        if (controller.A.isPressed() || controller.B.isPressed()) {
-            break
-        } else if (controller.up.isPressed())
-            selectedSongID--
-        else if (controller.down.isPressed())
-            selectedSongID++
-
-        selectedSongID = Math.clamp(0, songTitles.length - 1, selectedSongID)
-
-        bg.fill(0)
-        bg.printCenter("Karaoke v.54", 1, 4, image.doubledFont(image.font8))
-        for (let i = 0; i < songTitles.length; i++){
-            bg.print(songTitles[i], 30, i*14+23, i==selectedSongID? 3: 1)
-        }
-        // bg.fillRect(0, 0, 30, 120, 0)
-        bg.fillCircle(23, selectedSongID * 14 + 23 + 4, 4, 3)
-
-        pause(60)
-    }
-}
-
-
-game.stats = true
-music.setVolume(255)
-const bg = game.currentScene().background.image
-
-if(selectedSongID<0)
-    drawMenu()
-playSong(selectedSongID)
 
 // Karaoke common control
 {
@@ -572,4 +601,4 @@ playSong(selectedSongID)
         leftRight(-1)
     })
 }
-// end Karaoke common codes
+// end Karaoke common control
