@@ -4,10 +4,10 @@ TODO:
 
     SongEditor:
     *  [√]add help
-    *  bug, bad apple lyric losed after changed pitch
+    *  bug, bad apple lyric lostd after changed pitch
     *　[√]← → +pausing: adjust changeNoteWidth(ppt)
     *  append, multi track with same ID joined mismatch (addHarmony add new track with same ID)
-    *  addHarmony, remove clone (duplicated with addTracks)
+    *  remove clone in addHarmony(), duplicated with addTracks
     *  deal with diff tickPerBeat when operating songs.
     *  [x] getNote(i, track.instrument.octave)√
     *  [√]multi track with same ID: 
