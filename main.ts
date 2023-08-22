@@ -14,6 +14,7 @@ function drawMenu(){
         miniMenu.createMenuItem("外婆的澎湖湾"),
         miniMenu.createMenuItem("罗刹海市"),
         miniMenu.createMenuItem("Bad Apple"),
+        miniMenu.createMenuItem("Help"),
     )
     myMenu.setTitle("Karaoke v.1")
     myMenu.setFrame(img`
@@ -71,8 +72,21 @@ function drawMenu(){
     myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Foreground, 5)
     
     myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
-        selectedSongID = selectedIndex
-        myMenu.close()
+        if (selectedIndex == 8) {
+            game.setDialogFont(image.font5)
+            game.setDialogFrame(sprites.dialog.starryclouds)
+            game.showLongText("\
+            A:\npause\n\
+            B:\nbeginning\
+            ↑↓:\nBPM/Tempo\
+            ←→:\nsentences\
+            ↑↓+pausing:\ntone pitch\
+            ", DialogLayout.Full)
+        } else {
+            
+            selectedSongID = selectedIndex
+            myMenu.close()
+        }
     })
 
     pauseUntil(()=>selectedSongID>=0)
