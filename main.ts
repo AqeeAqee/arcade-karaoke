@@ -1,9 +1,8 @@
 /**
  * TODO
- * Menu
- *  -control keys still work after re-enter menu
- *    remove backto menu feature, reset instead
  * SongEditor:
+ *  append, multi track with same ID joined mismatch (addHarmony add new track with same ID)
+ *  addHarmony, remove clone (duplicated with addTracks)
  *  deal with diff tickPerBeat when operating songs.
  *  x getNote(i, track.instrument.octave)
  *  -multi track with same ID: 
@@ -44,37 +43,37 @@ function drawMenu(){
         miniMenu.createMenuItem("罗刹海市"),
         miniMenu.createMenuItem("Bad Apple"),
     )
-    myMenu.setTitle("Karaoke V.1")
+    myMenu.setTitle("Karaoke v.1")
     myMenu.setFrame(img`
     ...cc......................cc....
     ..c55c..bbbb...bbbbb......c55c...
     .cb55bcbdddbbbbbdddbbbbbbcb55bc..
-    b555555bbdddb111bdddb11db555555b.
-    bb5555bbdbdb11111bdb1111bb5555bb.
-    cb5555bcddd11111ddd11111cb5555bc.
-    .c5bb5c1111d111d111d111ddc5bb5c..
-    .cbbbbc111111111111111111cbbbbc..
-    ..b11111111111111111111111d111bb.
-    ..b111111111111111111111111d1bdb.
-    ..bb11111111111111111111111dbddb.
-    .bbdb1d11111111111111111111ddddb.
-    .bdddd11111111111111111111d1bdbb.
-    .bddbd11111111111111111111111bb..
-    .bdb1d111111111111111111111111b..
-    .bb111d11111111111111111111111b..
-    ..b11111111111111111111111d111bb.
-    ..b111111111111111111111111d1bdb.
-    ..bb11111111111111111111111dbddb.
-    .bbdb1d11111111111111111111ddddb.
-    .bdddd11111111111111111111d1bdbb.
-    .bddbd11111111111111111111111bb..
-    .bdbb1111111111111111111111111b..
-    .bbbd1111111111111111111111111b..
-    ..bcc111111111111111111111dccdb..
-    ..c55c111d111d111d111d1111c55cb..
-    .cb55bcdd11111ddd11111dddcb55bc..
-    b555555b11111bdb11111bdbb555555b.
-    bb5555bbb111bdddb111bdddbb5555bb.
+    b555555bbdddb...bdddb..db555555b.
+    bb5555bbdbdb.....bdb....bb5555bb.
+    cb5555bcddd.....ddd.....cb5555bc.
+    .c5bb5c....d...d...d...ddc5bb5c..
+    .cbbbbc..................cbbbbc..
+    ..b.......................d...bb.
+    ..b........................d.bdb.
+    ..bb.......................dbddb.
+    .bbdb.d....................ddddb.
+    .bdddd....................d.bdbb.
+    .bddbd.......................bb..
+    .bdb.d........................b..
+    .bb...d.......................b..
+    ..b.......................d...bb.
+    ..b........................d.bdb.
+    ..bb.......................dbddb.
+    .bbdb.d....................ddddb.
+    .bdddd....................d.bdbb.
+    .bddbd.......................bb..
+    .bdbb.........................b..
+    .bbbd.........................b..
+    ..bcc.....................dccdb..
+    ..c55c...d...d...d...d....c55cb..
+    .cb55bcdd.....ddd.....dddcb55bc..
+    b555555b.....bdb.....bdbb555555b.
+    bb5555bbb...bdddb...bdddbb5555bb.
     cb5555bcdbbbbbdddbbbbbddcb5555bc.
     .c5bb5c.bb...bbbbb...bbbbc5bb5c..
     .cbbbbc..................cbbbbc..
@@ -82,8 +81,23 @@ function drawMenu(){
 `)
     myMenu.setDimensions(screen.width, screen.height)
     myMenu.setPosition(1, 1)
-    
 
+    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Background, 15)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Foreground, 11)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(1,1,1,1))
+
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Background, 11)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Foreground, 13)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Alignment, miniMenu.Alignment.Center)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(33,1,33,1))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Padding, miniMenu.createBorderBox(1,2,1,2))
+    
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(0,1,22,1))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Border, miniMenu.createBorderBox(1,1,1,1))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.BorderColor, 13)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Background, 15)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Foreground, 5)
+    
     myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
         info.setScore(selectedIndex)
         selectedSongID = selectedIndex
@@ -137,8 +151,6 @@ function playSong(id: number) {
             //omited one more repeat(song_O2~song_B4)
             .replaceInstrument(6, 0)
             .fill(true, songDrum)
-        info.setScore(builder.song.measures)
-        info.setScore(28*4 * 4 / 219 * 60)
 
         // https://www.bilibili.com/read/cv7813887/
         // (.+?) for 流（なが）
@@ -186,7 +198,7 @@ function playSong(id: number) {
         
         const lyric = lyric_A + lyric_B13 + lyric_B2 + lyric_A + lyric_B13 + lyric_B4
         Karaoke.setLyricSentencesSeparator("#")
-        Karaoke.playSong(builder.song, "Bad Apple", lyric.replaceAll("  ", "#"), 3)
+        Karaoke.playSong(builder.song, "Bad Apple", lyric.replaceAll("  ", "#"), 1) //3
     }
     // 外婆的澎湖湾
     if (selectedSongID == 5) {
