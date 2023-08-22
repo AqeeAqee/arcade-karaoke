@@ -170,7 +170,7 @@ namespace Karaoke {
         translateSentencesInLyricToTicks()
 
         if(sentencesByLyric)
-        console.log(sentencesByLyric.join())
+        // console.log(sentencesByLyric.join())
 
         play(true)
     }

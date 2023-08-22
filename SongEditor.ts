@@ -126,7 +126,7 @@ namespace SongEditor{
         if (!prefix)
             prefix = "__"
         console.logValue(prefix + "ID: ", track.id)
-        console.log(prefix+"byteLength: " + track.byteLength + "( " + track.instrumentByteLength + " + " + track.noteEventByteLength+" )")
+        console.logValue(prefix+"byteLength: ", track.byteLength + "( " + track.instrumentByteLength + " + " + track.noteEventByteLength+" )")
 
         let counter=0
         if(!maxNotes)maxNotes = 999999
@@ -245,7 +245,7 @@ namespace SongEditor{
             if (!track.isMelodicTrack) continue
             if (fromTrackID!=undefined && track.id != fromTrackID) continue
 
-            console.log([fromTrackID, toTrackID, track.id].join())
+            // console.log([fromTrackID, toTrackID, track.id].join())
             buf.write(track.offset, instrumentsBytes.slice(toTrackID * instrumentByteLength, instrumentByteLength))
             const picthOffset = (track.buf[track.offset + 4 + 27] - buf[track.offset + 4 + 27]) * 12 //fromOctave - toOctave
             const lastNoteEnd = track.noteEventStart + 2 + track.noteEventByteLength
