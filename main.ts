@@ -81,6 +81,7 @@ function drawMenu(){
             ↑↓:\nBPM/Tempo\
             ←→:\nsentences\
             ↑↓+pausing:\ntone pitch\
+            ←→+pausing:\nnote width\
             ", DialogLayout.Full)
         } else {
             
@@ -560,6 +561,7 @@ function playSong(id: number) {
             Karaoke.shiftSentence(delta)
         else
         {
+            Karaoke.changeNoteWidth(delta)
             // Karaoke.setYOffset(Karaoke.getYOffset()+ delta)
             // Karaoke.showAsScore(Karaoke.getYOffset())
         }

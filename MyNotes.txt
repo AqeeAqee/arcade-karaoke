@@ -3,7 +3,9 @@ Karaoke, by Aqee 2023-8
 TODO:
 
     SongEditor:
-    *  add help
+    *  [√]add help
+    *  bug, bad apple lyric losed after changed pitch
+    *　[√]← → +pausing: adjust changeNoteWidth(ppt)
     *  append, multi track with same ID joined mismatch (addHarmony add new track with same ID)
     *  addHarmony, remove clone (duplicated with addTracks)
     *  deal with diff tickPerBeat when operating songs.

@@ -196,7 +196,7 @@ namespace Karaoke {
             picthOffset%=0x40 // notes&0x3F by note.getNote()
             showAsScore(picthOffset)
             ajustYOffset()
-            lastBeatX=-9999
+            forceRedraw()
 
             if(seq){
                 seq.song=_song
@@ -309,14 +309,18 @@ namespace Karaoke {
 
     export function setYOffset(value:number){
         yOffset=value
-        lastBeatX=-9999
+        forceRedraw()
     }
 
     export function getYOffset(){
         return yOffset
     }
 
-    let lastBeatX = -9999
+    let lastBeatX:number
+    export function forceRedraw() {
+        lastBeatX = undefined
+    }
+
     export function drawChart(canvas:Image=null) {
         if(!_song) return
         let beatX = padding - ((tick % tickPerMeasure + tickPerMeasure) * ppt)
@@ -426,12 +430,18 @@ namespace Karaoke {
         tick = seq.currentTick
         fixCurrentNote(seq.currentTick)
 
-        lastBeatX = -9999
+        forceRedraw()
     }
 
     export function getYByPitch(picth: number) {
         return - picth * noteHeight + yOffset
     }
+
+    export function changeNoteWidth(delta:number) {
+        ppt = Math.clamp(1, 100, ppt + delta/2)
+        showAsScore(Karaoke.ppt)
+    }
+
 
     export function isPlaying(){
         return seq && seq.isPlaying
