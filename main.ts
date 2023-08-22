@@ -3,7 +3,7 @@ game.stats = true
 music.setVolume(255)
 const bg = game.currentScene().background.image
 
-let selectedSongID = -1
+let selectedSongID = 7// -1
 function drawMenu(){
     let myMenu = miniMenu.createMenu(
         miniMenu.createMenuItem("Twinkle Star"),
@@ -88,22 +88,23 @@ function playSong(id: number) {
         song_O2 = SongEditor.replaceInstrument(song_O2, 8)
         song_O2 = SongEditor.addHarmony(song_O2, -7)
         const builder = new SongEditor
-            .Builder(song_O1)
-            .append(song_O1)
+            .Builder(song_O2)
+            // .append(song_O1)
             .append(song_O2)
-            .append(song_O2)
-            .append(song_A1)
-            .append(song_A2)
-            .append(song_A1)
-            .append(song_A2)
-            .append(song_B123)
-            .append(song_B123)
-            .append(song_B123)
-            .append(song_B4)
-            .append(song_B123)
-            .append(song_B123)
-            .append(song_B123)
-            .append(song_B4)
+            .printTree()
+            // .append(song_O2)
+            // .append(song_A1)
+            // .append(song_A2)
+            // .append(song_A1)
+            // .append(song_A2)
+            // .append(song_B123)
+            // .append(song_B123)
+            // .append(song_B123)
+            // .append(song_B4)
+            // .append(song_B123)
+            // .append(song_B123)
+            // .append(song_B123)
+            // .append(song_B4)
             //omited one more repeat(song_O2~song_B4)
             .replaceInstrument(6, 0)
             .fill(true, songDrum)
