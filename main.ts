@@ -198,7 +198,7 @@ function playSong(id: number) {
         
         const lyric = lyric_A + lyric_B13 + lyric_B2 + lyric_A + lyric_B13 + lyric_B4
         Karaoke.setLyricSentencesSeparator("#")
-        Karaoke.playSong(builder.song, "Bad Apple", lyric.replaceAll("  ", "#"), 1) //3
+        Karaoke.playSong(builder.song, "Bad Apple", lyric.replaceAll("  ", "#"), 3)
     }
     // 外婆的澎湖湾
     if (selectedSongID == 5) {
