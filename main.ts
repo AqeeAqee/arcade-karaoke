@@ -71,7 +71,6 @@ function drawMenu(){
     myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Foreground, 5)
     
     myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
-        info.setScore(selectedIndex)
         selectedSongID = selectedIndex
         myMenu.close()
     })
