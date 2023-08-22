@@ -367,7 +367,7 @@ namespace Karaoke {
                 const noteWidth = (tempNote.endTick - tempNote.startTick) * ppt
 
                 // workaround of |0 bug in pack()
-                if (workaround && xNoteLeft < 0)
+                if (xNoteLeft < 0)
                     xNoteLeft -= 1
 
                 const noteIsActive = (tempNote.startTick <= tick && tick <= tempNote.endTick)
