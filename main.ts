@@ -39,7 +39,7 @@ function drawMenu(){
     myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Foreground, 5)
     
     myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
-        if (selectedIndex == 8) {
+        if (selectedIndex == myMenu.items.length-1) {
             game.setDialogFont(image.font5)
             const frame = sprites.dialog.mediumStar
             frame.replace(1,13)
