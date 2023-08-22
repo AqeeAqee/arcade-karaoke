@@ -17,41 +17,8 @@ function drawMenu(){
         miniMenu.createMenuItem("Help"),
     )
     myMenu.setTitle("Karaoke v.1")
-    myMenu.setFrame(img`
-    ...cc......................cc....
-    ..c55c..bbbb...bbbbb......c55c...
-    .cb55bcbdddbbbbbdddbbbbbbcb55bc..
-    b555555bbdddb...bdddb..db555555b.
-    bb5555bbdbdb.....bdb....bb5555bb.
-    cb5555bcddd.....ddd.....cb5555bc.
-    .c5bb5c....d...d...d...ddc5bb5c..
-    .cbbbbc..................cbbbbc..
-    ..b.......................d...bb.
-    ..b........................d.bdb.
-    ..bb.......................dbddb.
-    .bbdb.d....................ddddb.
-    .bdddd....................d.bdbb.
-    .bddbd.......................bb..
-    .bdb.d........................b..
-    .bb...d.......................b..
-    ..b.......................d...bb.
-    ..b........................d.bdb.
-    ..bb.......................dbddb.
-    .bbdb.d....................ddddb.
-    .bdddd....................d.bdbb.
-    .bddbd.......................bb..
-    .bdbb.........................b..
-    .bbbd.........................b..
-    ..bcc.....................dccdb..
-    ..c55c...d...d...d...d....c55cb..
-    .cb55bcdd.....ddd.....dddcb55bc..
-    b555555b.....bdb.....bdbb555555b.
-    bb5555bbb...bdddb...bdddbb5555bb.
-    cb5555bcdbbbbbdddbbbbbddcb5555bc.
-    .c5bb5c.bb...bbbbb...bbbbc5bb5c..
-    .cbbbbc..................cbbbbc..
-    .................................
-`)
+    myMenu.setFrame(sprites.dialog.mediumStar.clone())
+    myMenu.frame.replace(1, 0)
     myMenu.setDimensions(screen.width, screen.height)
     myMenu.setPosition(1, 1)
 
@@ -74,14 +41,17 @@ function drawMenu(){
     myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
         if (selectedIndex == 8) {
             game.setDialogFont(image.font5)
-            game.setDialogFrame(sprites.dialog.starryclouds)
+            const frame = sprites.dialog.mediumStar
+            frame.replace(1,13)
+            game.setDialogFrame(frame)
+            game.setDialogTextColor(1) 
             game.showLongText("\
-            A:\npause\n\
-            B:\nbeginning\
-            ↑↓:\nBPM/Tempo\
-            ←→:\nsentences\
-            ↑↓+pausing:\ntone pitch\
-            ←→+pausing:\nnote width\
+            A=\npause\n\
+            B=\nbeginning\
+            ↑↓=\nBPM/Tempo\
+            ←→=\nsentences\
+            pause+↑↓ =\ntone pitch\
+            pause+←→ =\nnote width\
             ", DialogLayout.Full)
         } else {
             
