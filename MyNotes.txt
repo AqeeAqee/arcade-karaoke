@@ -1,0 +1,30 @@
+Karaoke, by Aqee 2023-8
+
+TODO:
+
+    SongEditor:
+    *  add help
+    *  append, multi track with same ID joined mismatch (addHarmony add new track with same ID)
+    *  addHarmony, remove clone (duplicated with addTracks)
+    *  deal with diff tickPerBeat when operating songs.
+    *  [x] getNote(i, track.instrument.octave)√
+    *  [√]multi track with same ID: 
+    *      seq worked, but buildin editor keep only first track with same ID
+    Karaoke:
+    *  [√]sound started a little later than note cross the current tick Line
+    *      pading[√]1 when draw padding line, but why?
+    *  [√]renew sequencer song by set seq.song property
+    *  [√]encapsul SongEditor methods into Helper class
+    *  [√]"    " as LyricSentencesSeparator
+    *  [√]7/8 beats sopport
+    *  [√]split sentences from lyric
+    *  [√]adjust pitch at running
+    *  [√]Show countdown at beginning
+    *  [√]Show song title at beginning
+    *  [√]shiftSentence
+
+Arcade Issues:
+ *  Font absence: 滩 倜傥 骥 裱
+ *  Can't stop playing note, even sequencer.stop() or seq=undefined
+ *  Build-in Song Editor:
+    *    can't edit/display rise/fall tones
