@@ -169,9 +169,6 @@ namespace Karaoke {
         scanSentencesInLyric()
         translateSentencesInLyricToTicks()
 
-        if(sentencesByLyric)
-        // console.log(sentencesByLyric.join())
-
         play(true)
     }
 
