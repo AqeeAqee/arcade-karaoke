@@ -75,28 +75,6 @@ namespace Karaoke {
         return music.createSong(buf) as music.sequencer.Song
     }
 
-    function setSong(song: music.sequencer.Song){
-        if (!song) return
-
-        if (seq) {
-            seq.stop()
-            seq = undefined
-        }
-
-        clearVariables()
-
-        ticksPerBeat = song.ticksPerBeat
-        tickPerMeasure = song.beatsPerMeasure * ticksPerBeat
-        let emptyMeasure = creatEmptyMeasure(song)
-        _song = SongEditor.append(emptyMeasure, song)
-        _song = SongEditor.append(_song, emptyMeasure)
-        info.setLife(song.beatsPerMinute)
-
-        //only notes of first melody track
-        _notesTrack = _song.tracks.find((t) => t.isMelodicTrack)
-        ajustYOffset()
-    }
-
     function scanSentecesInMelody() {
         if (!sentencesTicks)
             sentencesTicks = [0]
@@ -157,15 +135,52 @@ namespace Karaoke {
         _notesTrack=undefined
     }
 
-    export function playSong(song: music.sequencer.Song, title?:string, lyric:string=null, notesTrack:number=null){
-        _title = title? title :""
-        setSong(song)
-        if (0 < notesTrack && notesTrack < _song.tracks.length){
-            _notesTrack = _song.tracks[notesTrack]
-            ajustYOffset()
-        }
-        setLyric(lyric)
+    function setSong(song: music.sequencer.Song){
+        if (!song) return
 
+        if (seq) {
+            seq.stop()
+            seq = undefined
+        }
+
+        clearVariables()
+
+        ticksPerBeat = song.ticksPerBeat
+        tickPerMeasure = song.beatsPerMeasure * ticksPerBeat
+        let emptyMeasure = creatEmptyMeasure(song)
+        _song = SongEditor.append(emptyMeasure, song)
+        _song = SongEditor.append(_song, emptyMeasure)
+        info.setLife(song.beatsPerMinute)
+    }
+
+    function setNotesTrack(song: music.sequencer.Song, iNotesTrack:number=0) {
+        if (0 <= iNotesTrack && iNotesTrack < _song.tracks.length) 
+            _notesTrack = _song.tracks[iNotesTrack]
+        else
+            //only notes of first melody track
+            _notesTrack = _song.tracks.find((t) => t.isMelodicTrack)
+        
+        if (!_notesTrack && _song.tracks.length > 0)
+            _notesTrack=_song.tracks[0]
+    }
+
+    export function playSong(song: music.sequencer.Song, title?:string, lyric:string=null, iNotesTrack:number=0){
+        if (!song) {
+            console.logValue("Error", "invalid song.")
+            return
+        }
+        if (song.tracks.length<1||song.tracks.filter((t)=>t.isMelodicTrack).length<1) {
+            console.logValue("Error", "at least 1 track required")
+            return
+        }
+        
+        _title = title ? title : ""
+        setSong(song)
+        setNotesTrack(song, iNotesTrack)
+
+        ajustYOffset()
+
+        setLyric(lyric)
         scanSentencesInLyric()
         translateSentencesInLyricToTicks()
 
@@ -206,7 +221,8 @@ namespace Karaoke {
         }
     }
 
-    function ajustYOffset(){
+    function ajustYOffset() {
+        if(!_notesTrack) return
         let maxPitch = 30, minPitch = 30
         const tempNote = new music.sequencer.NoteEvent(_notesTrack.buf, _notesTrack.noteEventStart + 2)
         for (; tempNote.offset < _notesTrack.offset + _notesTrack.byteLength; tempNote.offset += tempNote.byteLength) {
@@ -251,7 +267,8 @@ namespace Karaoke {
     }
 
     let countingDown=false
-    function countdown(canvas: Image){
+    function countdown(canvas: Image) {
+        if(!_notesTrack) return
         let countdown = 1 + ((_notesTrack.currentNoteEvent.startTick - 1 - tick) / _song.ticksPerBeat) 
         
         if((countdown|0)==0)
@@ -393,9 +410,9 @@ namespace Karaoke {
     }
 
     export function shiftSentence(delta: number) {
+        if(!_notesTrack) return
         delta |=0
         if(delta>0) delta--
-        if(!_notesTrack) return
 
         if (!sentencesTicks)
             scanSentecesInMelody()

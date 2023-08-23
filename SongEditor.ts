@@ -115,7 +115,7 @@ namespace SongEditor{
         return [note.startTick, note.endTick, note.polyphony, note.getNote(0)].join()
     }
 
-    export function printTree(song: music.sequencer.Song, maxNotes: number, prefix?:string) {
+    export function printTree(song: music.sequencer.Song, maxNotes?: number, prefix?:string) {
         if (!prefix)
             prefix = "__"
         console.logValue(prefix +"Header: ", song.buf.slice(0, 7).toHex())
@@ -395,15 +395,17 @@ namespace SongEditor{
 
     export function merge(song: music.sequencer.Song, song2: music.sequencer.Song) {
         let bufTracks = song.buf.slice(0, 7)
+        const song2Tracks= song2.tracks.slice() //clone
 
         let numberOfTracks=0
         for (let track of song.tracks) {
-            const track2 = song2.tracks.find((v) => v.id == track.id)
+            const track2 = song2Tracks.find((v) => v.id == track.id)
             if (track2) {
                 // console.log(track.id + " merge")
                 numberOfTracks++
                 const buf = mergeTrack(track, track2)
-                bufTracks=bufTracks.concat(buf)
+                bufTracks = bufTracks.concat(buf)
+                song2Tracks.removeElement(track2)
             } else {
                 // console.log(track.id + " keep")
                 numberOfTracks++
@@ -411,12 +413,10 @@ namespace SongEditor{
             }
         }
 
-        for (let track2 of song2.tracks) {
-            if (!song.tracks.some((v) => v.id == track2.id)) {
-                numberOfTracks++
-                // console.log(track2.id + " add")
-                bufTracks = bufTracks.concat(getTrackBuf(track2))
-            }
+        for (let track2 of song2Tracks) {
+            numberOfTracks++
+            // console.log(track2.id + " add")
+            bufTracks = bufTracks.concat(getTrackBuf(track2))
         }
 
         bufTracks[6] = numberOfTracks  //should before init tracks

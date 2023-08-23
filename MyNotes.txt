@@ -3,11 +3,12 @@ Karaoke, by Aqee 2023-8
 TODO:
 
     SongEditor:
-    *  [√] bug, bad apple lyric losted after changed pitch. bc A new notesTrack was set 
-    ?? notesTrack need seperate tracks, but addHarmony will duplicate track
-    *  append, multi track with same ID joined mismatch (addHarmony add new track with same ID)
-        solution: merge tracks pairwise by order, 1 to 1 conrespondence, in both tracks(filter by track ID) list of songs
     *  deal with diff tickPerBeat when operating songs.
+    *  [√] merge tracks pairwise by order, 1 to 1 conrespondence, in both tracks(filter by track ID) list of songs
+           solution of: 
+            * notesTrack need seperate tracks, but addHarmony will duplicate track
+            * append, multi track with same ID joined mismatch (addHarmony add new track with same ID)
+    *  [√] bug, bad apple lyric losted after changed pitch. bc A new notesTrack was set 
     *  [√]remove clone in addHarmony(), duplicated with addTracks
     *  [√]add SongEditor.insert()
     *  [√]add help
