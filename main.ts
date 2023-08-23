@@ -229,7 +229,6 @@ function playSong(id: number) {
             // .replaceInstrument(5)
             // .addHarmony(-5)
             .addInstrumentHarmony([5, 6])
-            .printTree()
             .fill(true, songDrum)
             .reduceBeats(6)
         // .printTree().printBuf()

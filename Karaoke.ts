@@ -190,7 +190,8 @@ namespace Karaoke {
     export function changePitch(delta:number){
         delta |= 0
         // const playing= isPlaying()
-        if(_song){
+        if (_song) {
+            const iNotesTrack= _song.tracks.indexOf(_notesTrack)
             _song=SongEditor.riseFallTone(_song, delta)
             picthOffset+=delta
             picthOffset%=0x40 // notes&0x3F by note.getNote()
@@ -201,13 +202,10 @@ namespace Karaoke {
             if(seq){
                 seq.song=_song
                 fixCurrentNote(seq.currentTick)
-                _notesTrack = _song.tracks.find((t) => t.isMelodicTrack)
+                _notesTrack = (iNotesTrack >= 0) ?
+                    _song.tracks[iNotesTrack] :
+                    _notesTrack = _song.tracks.find((t) => t.isMelodicTrack)
             }
-                
-            // play(false)
-            // if(!playing)
-            //     seq.stop()
-                
         }
     }
 
