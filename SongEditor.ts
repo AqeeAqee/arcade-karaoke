@@ -9,6 +9,11 @@ namespace SongEditor{
     export class Builder{
         constructor(public song: music.sequencer.Song) {}
 
+        public insert(song2: music.sequencer.Song, stitch = false) {
+            this.song = SongEditor.append(song2, this.song, stitch)
+            return this
+        }
+
         public append(song2: music.sequencer.Song, stitch = false) {
             this.song = SongEditor.append(this.song, song2, stitch)
             return this

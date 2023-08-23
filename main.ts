@@ -3,7 +3,7 @@ game.stats = true
 music.setVolume(255)
 const bg = game.currentScene().background.image
 
-let selectedSongID = 7// -1
+let selectedSongID = -1
 function drawMenu(){
     let myMenu = miniMenu.createMenu(
         miniMenu.createMenuItem("Twinkle Star"),
@@ -84,27 +84,29 @@ function playSong(id: number) {
         const song_A2 = music.createSong(hex`0078000408040100001c00010a006400f401640000040000000000000000000000000005000004900000000400011604000800011808000c0001190c001000011b10001800011d18001c0001221c002000012020002800011d28003000011630003400011d34003800011b38003c0001193c004000011840004400011644004800011848004c0001194c005000011b50005800011d58005c00011b5c006000011960006800011868007000011970007800011b78008000011d`) as music.sequencer.Song
         const song_B123 = music.createSong(hex`0078000408040100001c00010a006400f401640000040000000000000000000000000005000004a80000000400012004000800012208000c00011d0c001000011b10001800011d18001c00011b1c002000011d20002400012024002800012228002c00011d2c003000011b30003800011d38003c00011b3c004000011d40004400011b44004800011948004c0001184c005000011450005800011658005c0001145c006000011660006400011864006800011968006c00011b6c007000011d70007800011678007c00011d7c0080000120`) as music.sequencer.Song
         const song_B4 = music.createSong(hex`0078000408040100001c00010a006400f401640000040000000000000000000000000005000004a80000000400012004000800012208000c00011d0c001000011b10001800011d18001c00011b1c002000011d20002400012024002800012228002c00011d2c003000011b30003800011d38003c0001223c004000012440004400012544004800012448004c0001224c005000012050005800011d58005c00011b5c006000011d60006400011b64006800011968006c0001186c007000011470007800011678007c00011d7c0080000120`) as music.sequencer.Song
-        song_O2= SongEditor.riseFallTone(song_O2, -12)
-        song_O2 = SongEditor.replaceInstrument(song_O2, 8)
-        song_O2 = SongEditor.addHarmony(song_O2, -7)
+        // song_O2= SongEditor.riseFallTone(song_O2, -12)
+        // song_O2 = SongEditor.replaceInstrument(song_O2, 8)
+        // song_O2 = SongEditor.addHarmony(song_O2, -7)
         const builder = new SongEditor
             .Builder(song_O2)
-            // .append(song_O1)
-            .append(song_O2)
-            .printTree()
-            // .append(song_O2)
-            // .append(song_A1)
-            // .append(song_A2)
-            // .append(song_A1)
-            // .append(song_A2)
-            // .append(song_B123)
-            // .append(song_B123)
-            // .append(song_B123)
-            // .append(song_B4)
-            // .append(song_B123)
-            // .append(song_B123)
-            // .append(song_B123)
-            // .append(song_B4)
+            .riseFallTone(-12)
+            .replaceInstrument(8) 
+            .addHarmony(-7)
+            .repeat(2)
+            .insert(song_O1)
+            .insert(song_O1)
+            .append(song_A1)
+            .append(song_A2)
+            .append(song_A1)
+            .append(song_A2)
+            .append(song_B123)
+            .append(song_B123)
+            .append(song_B123)
+            .append(song_B4)
+            .append(song_B123)
+            .append(song_B123)
+            .append(song_B123)
+            .append(song_B4)
             //omited one more repeat(song_O2~song_B4)
             .replaceInstrument(6, 0)
             .fill(true, songDrum)

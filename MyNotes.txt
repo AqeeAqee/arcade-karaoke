@@ -3,12 +3,14 @@ Karaoke, by Aqee 2023-8
 TODO:
 
     SongEditor:
-    *  [√]add help
-    *  bug, bad apple lyric lostd after changed pitch
-    *　[√]← → +pausing: adjust changeNoteWidth(ppt)
+    bug, bad apple lyric lostd after changed pitch
+    ?? notesTrack need seperate tracks, but addHarmony will duplicate track
     *  append, multi track with same ID joined mismatch (addHarmony add new track with same ID)
     *  remove clone in addHarmony(), duplicated with addTracks
     *  deal with diff tickPerBeat when operating songs.
+    *  [√]add SongEditor.insert()
+    *  [√]add help
+    *　[√]← → +pausing: adjust changeNoteWidth(ppt)
     *  [x] getNote(i, track.instrument.octave)√
     *  [√]multi track with same ID: 
     *      seq worked, but buildin editor keep only first track with same ID
