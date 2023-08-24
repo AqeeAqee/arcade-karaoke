@@ -231,7 +231,7 @@ namespace Karaoke {
                 minPitch = Math.min(minPitch, tempNote.getNote(i))
             }
         }
-        yOffset = 60+((maxPitch + minPitch) / 2)*noteHeight +10
+        yOffset = (screen.height>>1) +((maxPitch + minPitch) / 2)*noteHeight +10
     }
 
     let _notesTrack:music.sequencer.Track
@@ -315,7 +315,7 @@ namespace Karaoke {
     const padding = 33
     export let ppt = 8 // pixels per tick, be set after setSong/playSong
     const noteHeight = 3
-    let yOffset = 120+20
+    let yOffset = 80+ screen.height>>1
     let ticksPerBeat=0
     let tickPerMeasure=0
 

@@ -1,3 +1,7 @@
+namespace userconfig {
+    export const ARCADE_SCREEN_WIDTH = 320
+    export const ARCADE_SCREEN_HEIGHT = 240
+}
 
 game.stats = true
 music.setVolume(255)
@@ -26,11 +30,12 @@ function drawMenu(){
     myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Foreground, 11)
     myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(1,1,1,1))
 
+    const padding = ((myMenu.width/2-myMenu.frame.width/3)-6*12/2)>>1
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(padding,1,padding,1))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Padding, miniMenu.createBorderBox(1,2,1,2))
     myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Background, 11)
     myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Foreground, 13)
     myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Alignment, miniMenu.Alignment.Center)
-    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(33,1,33,1))
-    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Padding, miniMenu.createBorderBox(1,2,1,2))
     
     myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(0,1,22,1))
     myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Border, miniMenu.createBorderBox(1,1,1,1))
