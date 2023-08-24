@@ -46,19 +46,19 @@ function drawMenu(){
     
     myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
         if (selectedIndex == myMenu.items.length-1) {
-            game.setDialogFont(image.font5)
+            game.setDialogFont(image.getFontForText("abc"))
             const frame = sprites.dialog.mediumStar
             frame.replace(1,13)
             game.setDialogFrame(frame)
             game.setDialogTextColor(1) 
             game.showLongText("\
-            A=\npause\n\
-            B=\nbeginning\
-            ↑↓=\nBPM/Tempo\
-            ←→=\nsentences\
-            pause+↑↓ =\ntone pitch\
-            pause+←→ =\nnote width\
-            ", DialogLayout.Full)
+A= pause\n\
+B= Restart\n\
+↑↓=BPM/Tempo\n\
+←→=Sentences\n\
+pause+↑↓= Pitch tune\n\
+pause+←→= Note width\
+", DialogLayout.Full)
         } else {
             selectedSongID = selectedIndex
             myMenu.close()
