@@ -511,7 +511,7 @@ function drawMenu(){
                 helpImg.print(s[0], 4, i * 10+2, 13)
                 helpImg.print(s[1], 44, i * 10+2, 11)
             })
-            game.showImageDialog(DialogLayout.Full, helpImg)
+            game.showImageDialog(DialogLayout.Full, screen.width<300?helpImg:helpImg.doubled())
         } else {
             selectedSongID = selectedIndex
             myMenu.close()
