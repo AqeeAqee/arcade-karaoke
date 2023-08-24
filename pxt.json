@@ -3,7 +3,8 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "arcade-mini-menu": "github:riknoll/arcade-mini-menu#c8b01b9d47f85a5133c786f1c026b1f376fe4285"
+        "arcade-mini-menu": "github:riknoll/arcade-mini-menu#c8b01b9d47f85a5133c786f1c026b1f376fe4285",
+        "arcade-dialog": "github:aqeeaqee/arcade-dialog#59029bfeaf3b30ce793d8d211dc17e697905801a"
     },
     "files": [
         "main.blocks",

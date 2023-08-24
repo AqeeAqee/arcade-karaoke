@@ -1,78 +1,13 @@
-namespace userconfig {
-    export const ARCADE_SCREEN_WIDTH = 320
-    export const ARCADE_SCREEN_HEIGHT = 240
-}
+// namespace userconfig {
+//     export const ARCADE_SCREEN_WIDTH = 320
+//     export const ARCADE_SCREEN_HEIGHT = 240
+// }
 
 game.stats = true
 music.setVolume(255)
 const bg = game.currentScene().background.image
 
 let selectedSongID = -1
-function drawMenu(){
-    let myMenu = miniMenu.createMenu(
-        miniMenu.createMenuItem("Twinkle Star"),
-        miniMenu.createMenuItem("Scarborough Fair"),
-        miniMenu.createMenuItem("The Sound Of Silence"),
-        miniMenu.createMenuItem("多想还小"),
-        miniMenu.createMenuItem("宝贝宝贝"),
-        miniMenu.createMenuItem("外婆的澎湖湾"),
-        miniMenu.createMenuItem("罗刹海市"),
-        miniMenu.createMenuItem("Bad Apple - Kana"),
-        miniMenu.createMenuItem("Bad Apple - Roma"),
-        miniMenu.createMenuItem("Help"),
-    )
-    myMenu.setTitle("Karaoke v.1")
-    myMenu.setFrame(sprites.dialog.mediumStar.clone())
-    myMenu.frame.replace(1, 0)
-    myMenu.setDimensions(screen.width, screen.height)
-    myMenu.setPosition(1, 1)
-
-    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Background, 15)
-    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Foreground, 11)
-    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(1,1,1,1))
-
-    const padding = ((myMenu.width/2-myMenu.frame.width/3)-6*12/2)>>1
-    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(padding,1,padding,1))
-    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Padding, miniMenu.createBorderBox(1,2,1,2))
-    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Background, 11)
-    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Foreground, 13)
-    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Alignment, miniMenu.Alignment.Center)
-    
-    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(0,1,22,1))
-    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Border, miniMenu.createBorderBox(1,1,1,1))
-    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.BorderColor, 13)
-    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Background, 15)
-    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Foreground, 5)
-    
-    myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
-        if (selectedIndex == myMenu.items.length-1) {
-            game.setDialogFont(image.getFontForText("abc"))
-            const frame = sprites.dialog.mediumStar
-            frame.replace(1,13)
-            game.setDialogFrame(frame)
-            game.setDialogTextColor(1) 
-            game.showLongText("\
-A= pause\n\
-B= Restart\n\
-↑↓=BPM/Tempo\n\
-←→=Sentences\n\
-pause+↑↓= Pitch tune\n\
-pause+←→= Note width\
-", DialogLayout.Full)
-        } else {
-            selectedSongID = selectedIndex
-            myMenu.close()
-        }
-    })
-
-    pauseUntil(()=>selectedSongID>=0)
-}
-
-if (selectedSongID < 0)
-    drawMenu()
-
-playSong(selectedSongID)
-
 
 function playSong(id: number) {
     Karaoke.setLyricWordsSeparator(undefined)
@@ -522,6 +457,75 @@ function playSong(id: number) {
 
     }
 }
+
+function drawMenu(){
+    let myMenu = miniMenu.createMenu(
+        miniMenu.createMenuItem("Twinkle Star"),
+        miniMenu.createMenuItem("Scarborough Fair"),
+        miniMenu.createMenuItem("The Sound Of Silence"),
+        miniMenu.createMenuItem("多想还小"),
+        miniMenu.createMenuItem("宝贝宝贝"),
+        miniMenu.createMenuItem("外婆的澎湖湾"),
+        miniMenu.createMenuItem("罗刹海市"),
+        miniMenu.createMenuItem("Bad Apple - Kana"),
+        miniMenu.createMenuItem("Bad Apple - Roma"),
+        miniMenu.createMenuItem("Help"),
+    )
+    myMenu.setTitle("Karaoke v.1")
+    myMenu.setFrame(sprites.dialog.mediumStar.clone())
+    myMenu.frame.replace(1, 0)
+    myMenu.setDimensions(screen.width, screen.height)
+    myMenu.setPosition(1, 1)
+
+    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Background, 15)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Foreground, 11)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(1,1,1,1))
+
+    const padding = ((myMenu.width/2-myMenu.frame.width/3)-6*12/2)>>1
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(padding,1,padding,1))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Padding, miniMenu.createBorderBox(1,2,1,2))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Background, 11)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Foreground, 13)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Alignment, miniMenu.Alignment.Center)
+    
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(0,1,22,1))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Border, miniMenu.createBorderBox(1,1,1,1))
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.BorderColor, 13)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Background, 15)
+    myMenu.setStyleProperty(miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Foreground, 5)
+    
+
+    myMenu.onButtonPressed(controller.A, function (selection: string, selectedIndex: number) {
+        if (selectedIndex == myMenu.items.length-1) {
+                game.setDialogFrame(sprites.dialog.mediumStar)
+            const helpImg = image.create(40 + 60+4, 80+4)
+            const text = [
+                ["A", "pause"],
+                ["B", "Restart"],
+                ["↕", "BPM/Tempo"],
+                ["↔", "Sentences"],
+                ["", ""],
+                ["pausing:", ""],
+                ["↕", "Pitch tune"],
+                ["↔", "Note width"]]
+            text.forEach((s, i) => {
+                helpImg.print(s[0], 4, i * 10+2, 13)
+                helpImg.print(s[1], 44, i * 10+2, 11)
+            })
+            game.showImageDialog(DialogLayout.Full, helpImg)
+        } else {
+            selectedSongID = selectedIndex
+            myMenu.close()
+        }
+    })
+
+    pauseUntil(()=>selectedSongID>=0)
+}
+
+if (selectedSongID < 0)
+    drawMenu()
+
+playSong(selectedSongID)
 
 
 // Karaoke common control
