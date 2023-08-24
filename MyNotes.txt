@@ -3,6 +3,20 @@ Karaoke, by Aqee 2023-8
 TODO:
 
     SongEditor:
+    *  new sequencer, accept a new song class:
+        * new song class
+            * in which multi song as sections
+            * startTick of section, for move/pan
+            * sections edit: repeat/instrument/harmony/append/insert/reduceBeats/...
+            * assgin notesTrack and lyric for each section
+            * output to regular song
+            * notes edit: remove/insert
+            * print/display structure of sections
+        * new sequencer
+            * play/pause as build-in sequencer
+            * pitch tune, pitch harmony, instrument harmony
+            * jump by section, get current section
+            * get notes by time/tick span, for Karaoke render
     *  deal with diff tickPerBeat when operating songs.
     *  [√] merge tracks pairwise by order, 1 to 1 conrespondence, in both tracks(filter by track ID) list of songs
            solution of: 
