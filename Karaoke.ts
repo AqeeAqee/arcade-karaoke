@@ -10,6 +10,7 @@ namespace Karaoke {
     const font12Double = image.doubledFont(image.font12)
     const font8Double = image.doubledFont(image.font8)
     const bg = game.currentScene().background.image
+    const W=screen.width, H=screen.height
 
     let _song:music.sequencer.Song
     let _title=""
@@ -308,8 +309,9 @@ namespace Karaoke {
     })
 
     //style
-    const colorPitchC = 14
+    const colorCursor = 4, colorPitchC = 14
     const colorBeat1 = 11, colorBeat3 = 12, colorHalfBeat = 10
+    const colorProgressBar_bg= 11 
 
     //formats
     const padding = 33
@@ -367,7 +369,7 @@ namespace Karaoke {
         for (; yPitch<canvas.height; yPitch+=step)
             canvas.drawLine(0, yPitch, canvas.width, yPitch, colorPitchC)
 
-        canvas.drawLine(padding-1, 0, padding-1, canvas.height, 4)
+        canvas.drawLine(padding-1, 0, padding-1, canvas.height, colorCursor)
 
         //notes
         if (_notesTrack) {
@@ -407,6 +409,9 @@ namespace Karaoke {
             canvas.print("<" + _title + ">", padding + ((- tick) * ppt), 34, 3, titleFont)
             countdown(canvas)
         }
+
+        canvas.drawRect(0, H - 1, W, 1, colorProgressBar_bg)
+        canvas.setPixel(tick*W/(_song.measures*_song.beatsPerMeasure*_song.ticksPerBeat), H-1, colorCursor)
     }
 
     export function shiftSentence(delta: number) {

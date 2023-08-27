@@ -17,7 +17,7 @@ TODO:
             * pitch tune, pitch harmony, instrument harmony
             * jump by section, get current section
             * get notes by time/tick span, for Karaoke render
-    *  progress bar
+    *  [√] progress bar
     *  deal with diff tickPerBeat when operating songs.
     *  [√] merge tracks pairwise by order, 1 to 1 conrespondence, in both tracks(filter by track ID) list of songs
            solution of: 
