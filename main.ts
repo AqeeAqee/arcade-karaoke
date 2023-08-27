@@ -8,7 +8,6 @@ music.setVolume(255)
 const bg = game.currentScene().background.image
 
 let selectedSongID = -1
-
 function playSong(id: number) {
     Karaoke.setLyricWordsSeparator(undefined)
     Karaoke.setLyricSentencesSeparator(undefined)
@@ -471,7 +470,7 @@ function drawMenu(){
         miniMenu.createMenuItem("Bad Apple - Roma"),
         miniMenu.createMenuItem("Help"),
     )
-    myMenu.setTitle("Karaoke v.1")
+    myMenu.setTitle(control.programName())
     myMenu.setFrame(sprites.dialog.mediumStar.clone())
     myMenu.frame.replace(1, 0)
     myMenu.setDimensions(screen.width, screen.height)
@@ -481,7 +480,7 @@ function drawMenu(){
     myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Foreground, 11)
     myMenu.setStyleProperty(miniMenu.StyleKind.Default, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(1,1,1,1))
 
-    const padding = ((myMenu.width/2-myMenu.frame.width/3)-6*12/2)>>1
+    const padding = (myMenu.width / 2 - myMenu.frame.width / 3 - 6 * control.programName().length/2)>>1
     myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Margin, miniMenu.createBorderBox(padding,1,padding,1))
     myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Padding, miniMenu.createBorderBox(1,2,1,2))
     myMenu.setStyleProperty(miniMenu.StyleKind.Title, miniMenu.StyleProperty.Background, 11)
