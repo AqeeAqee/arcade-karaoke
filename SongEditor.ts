@@ -83,6 +83,11 @@ namespace SongEditor{
             this.song = SongEditor.fill(this.song, newTrack, withsong, stitch)
             return this
         }
+
+        public setTickPerBeat(tickPerBeat: number) {
+            this.song = SongEditor.setTickPerBeat(this.song, tickPerBeat)
+            return this
+        }
     }
 
     export function printBuf(song: music.sequencer.Song): string {
@@ -479,4 +484,25 @@ namespace SongEditor{
         else
             return merge(song, withsong_repeated)
     }
+
+    export function setTickPerBeat(song: music.sequencer.Song, tickPerBeat:number){
+        tickPerBeat |= 0
+        if(tickPerBeat<=0) return song
+        song = clone(song)
+        
+        const rate= tickPerBeat/ song.ticksPerBeat
+        for(let track of song.tracks){
+            let note = new music.sequencer.NoteEvent(track.buf, track.noteEventStart + 2)
+            while (note.offset < track.noteEventStart + 2 + track.noteEventByteLength) {
+                note.startTick*=rate
+                note.endTick*=rate
+                note.offset += note.byteLength
+            }
+        }
+        song.ticksPerBeat=tickPerBeat
+
+        return song
+    }
+
+
 }
